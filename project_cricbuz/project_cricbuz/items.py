@@ -11,7 +11,7 @@ import scrapy
 class ProjectCricbuzItem(scrapy.Item):
     # define the fields for your item here like:
     # name = scrapy.Field()
-    game_date = scrapy.Field()
+    #game_date = scrapy.Field()
     game_name = scrapy.Field()
-    game_winner = scrapy.Field()
-    game_looser = scrapy.Field()
+    #game_winner = scrapy.Field()
+    #game_looser = scrapy.Field()
