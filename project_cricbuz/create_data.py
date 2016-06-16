@@ -3,12 +3,20 @@ from __future__ import (absolute_import, division,
 from bs4 import BeautifulSoup
 import re
 
+# modules changed in python 3
 try:
     import urllib.request as ur
+    from urllib.parse import urljoin
 except ImportError:
     import urllib as ur
+    from urlparse import urljoin
 
-html = ur.urlopen('page_source/zim-vs-ind-1st-odi-india-tour-of-zimbabwe-2016').read()
+from ignore_words import ignore_words
+from ignore_words import ignore_patters
+
+
+html = ur.urlopen('file:page_source/afg-vs-hk-5th-t20i-afghanistan-and-hong-kong-and-oman-in-uae-2015-score-card').read()
+url = "http://www.cricbuzz.com"
 
 soup = BeautifulSoup(html, 'html.parser')
 texts = soup.findAll(text=True)
@@ -35,6 +43,49 @@ def get_all_texts():
             pass
     return visible_texts
 
-if __name__ == '__main__':
-    prin("".join(get_all_texts()))
+def get_player_info(texts, player_name):
+    for i,item in enumerate(texts):
+        if item == player_name:
+            get_player_statss = [texts[x] for x in range(i, i+9)]
+            return get_player_statss
+
+def not_match_any_pattern(string, ignore_pattern):
+    pattern = re.compile(ignore_pattern)
+    if pattern.match(string):
+        return False
+    return True
+
+def is_player_name(tag):
+    if len(tag.text.split()) > 3:
+        return False
+    elif tag.text in ignore_words:
+        return False
+    else:
+        return True
+
+def relevant_tags(tag):
+    tag['href'] = urljoin(url, tag['href'])
+    if is_player_name(tag) and \
+        all(not_match_any_pattern(tag.text, ignore_pattern) for ignore_pattern in ignore_patters):
+        return True
+
+def get_all_player_names():
+    all_players = []
+    relevant_tag_list = filter(relevant_tags, soup.findAll('a', href=True))
+    for tag in relevant_tag_list:
+        all_players.append(tag.text)
+    return list(set(all_players))
+
+def get_player_info(texts, player_name):
+    for i,item in enumerate(texts):
+        if item == player_name:
+            get_player_statss = [texts[x] for x in range(i, i+9)]
+            return get_player_statss
+
+def get_all_player_stats():
+    all_player_stats = []
+    for player in get_all_player_names():
+        all_player_stats.append({player: get_player_info(texts, player)})
+    return all_player_stats
+
 
