@@ -8,7 +8,8 @@ from create_data import get_player_info
 from create_data import get_all_player_names
 from create_data import not_match_any_pattern
 from create_data import get_all_player_stats
-from create_data import get_match_stats_for_player
+from create_data import validate_stats
+from create_data import filter_invalid_match_stat
 
 pp = pprint.PrettyPrinter(indent=4)
 
@@ -36,13 +37,17 @@ def test_get_all_player_stats():
     res = get_all_player_stats()
     assert {'Dhawal Kulkarni': ['Dhawal Kulkarni', '10', '1', '42', '2', '0', '1', '4.20', 'Barinder Sran']} in res
 
-def test_get_match_stats_for_player_invalid():
+def test_validate_stats_invalid():
     all_player_stats = [{'Dhawal Kulkarni': ['Dhawal Kulkarni', '10', '1', '42', '2', '0', '1', '4.20', 'Barinder Sran']}]
-    res = get_match_stats_for_player(all_player_stats)
+    res = validate_stats(all_player_stats)
     assert res == {}
 
-def test_get_match_stats_for_player_valid():
+def test_validate_stats_valid():
     all_player_stats = [{'Graeme Cremer': ['Graeme Cremer', 'b D Kulkarni', '\\xa0\\xa0', ' ', '8', '11', '1', '0', '72']}]
-    res = get_match_stats_for_player(all_player_stats)
-    print(res)
+    res = validate_stats(all_player_stats)
     assert res == {'Graeme Cremer': ['Graeme Cremer', 'b D Kulkarni', '\\xa0\\xa0', ' ', '8', '11', '1', '0', '72']}
+
+def test_filter_invalid_match_stat():
+    valid_stats = filter_invalid_match_stat()
+    print(valid_stats)
+    assert valid_stats == 1

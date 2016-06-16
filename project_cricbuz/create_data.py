@@ -88,7 +88,7 @@ def get_all_player_stats():
         all_player_stats.append({player: get_player_info(texts, player)})
     return all_player_stats
 
-def get_match_stats_for_player(all_player_stats):
+def validate_stats(all_player_stats):
     player_match_stats = {}
     num_pattern = "\d+"
     pattern = re.compile(num_pattern)
@@ -97,3 +97,9 @@ def get_match_stats_for_player(all_player_stats):
             if all(map(pattern.match, player_stats[4:])):
                 player_match_stats[player_name] = player_stats
     return player_match_stats
+
+def filter_invalid_match_stat():
+    all_player_stats = get_all_player_stats()
+    valid_stats = validate_stats(all_player_stats)
+    return valid_stats
+
