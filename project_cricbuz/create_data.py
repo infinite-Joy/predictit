@@ -88,4 +88,12 @@ def get_all_player_stats():
         all_player_stats.append({player: get_player_info(texts, player)})
     return all_player_stats
 
-
+def get_match_stats_for_player(all_player_stats):
+    player_match_stats = {}
+    num_pattern = "\d+"
+    pattern = re.compile(num_pattern)
+    for player_stat in all_player_stats:
+        for player_name, player_stats in player_stat.items(): # dict.items() is py3 code. need to make py2 compat
+            if all(map(pattern.match, player_stats[4:])):
+                player_match_stats[player_name] = player_stats
+    return player_match_stats
