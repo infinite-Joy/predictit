@@ -49,5 +49,4 @@ def test_validate_stats_valid():
 
 def test_filter_invalid_match_stat():
     valid_stats = filter_invalid_match_stat()
-    print(valid_stats)
-    assert valid_stats == 1
+    assert valid_stats == {'Sikandar Raza': ['Sikandar Raza', 'b Barinder', '\xa0\xa0', ' ', '23', '54', '2', '0', '42.59'], 'Peter Moor': ['Peter Moor', 'lbw b Barinder', '\xa0\xa0', ' ', '3', '5', '0', '0', '60.00'], 'Hamilton Masakadza': ['Hamilton Masakadza', 'c Dhoni b D Kulkarni', '\xa0\xa0', ' ', '14', '21', '2', '0', '66.67'], 'Elton Chigumbura': ['Elton Chigumbura', 'b Bumrah', '\xa0\xa0', ' ', '41', '65', '1', '0', '63.08'], 'Graeme Cremer': ['Graeme Cremer', 'b D Kulkarni', '\xa0\xa0', ' ', '8', '11', '1', '0', '72.73'], 'Vusi Sibanda': ['Vusi Sibanda', 'c Dhoni b Bumrah', '\xa0\xa0', ' ', '5', '21', '0', '0', '23.81'], 'Chamu Chibhabha': ['Chamu Chibhabha', 'b Bumrah', '\xa0\xa0', ' ', '13', '42', '0', '0', '30.95'], 'Craig Ervine': ['Craig Ervine', 'c (sub)F Fazal b Axar', '\xa0\xa0', ' ', '21', '45', '1', '0', '46.67'], 'Richmond Mutumbami': ['Richmond Mutumbami', 'c Rahul b Chahal', '\xa0\xa0', ' ', '15', '27', '2', '0', '55.56'], 'Karun Nair': ['Karun Nair', 'c S Raza b Chatara', '\xa0\xa0', ' ', '7', '20', '1', '0', '35.00'], 'Tendai Chatara': ['Tendai Chatara', 'c Rayudu b Bumrah', '\xa0\xa0', ' ', '4', '10', '0', '0', '40.00']}
