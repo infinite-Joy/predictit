@@ -3,7 +3,7 @@ import scrapy
 import time
 import os #for creating directory tree based on year, series name and match name
 pref = ''
-
+url_stat = {}
 def player_info_url():
     player_dict = {}
     file_count = 0
@@ -52,11 +52,16 @@ class cricbuz_spider(scrapy.Spider):
     name = 'cricbuz'
     allowed_domains = ['cricbuzz.com']
     start_urls = ['http://www.cricbuzz.com/cricket-scorecard-archives']
+    def close(self, reason):
+        global url_stat
+        with open('total_url.txt', 'w+') as f:
+            for key, value in url_stat.items():
+                f.write(str(key) + ' ;---; ' + str(value) + '\n')
 
 
     def parse(self, response):
         #Fetching year link
-        global pref
+        global pref, count
         years = response.xpath('//div[@class="cb-col-33 cb-col cb-col-rt"]/div/a/@href').extract()
         pref = '/'.join(response.url.split('/')[:-1])
         for year in years:
@@ -91,25 +96,28 @@ class cricbuz_spider(scrapy.Spider):
             yield request
 
     def match_details(self, response):
+        global url_stat
         #fetching link to all four subpages
         r = response.meta
         url = response.url
         path = str(r['num_year']) + '/' + str(r['str_each_series']) + '/' + str(r['match_name']) + '/'
-        current_url = url
         current_path = path + 'cricket-scores.html'
         os.makedirs(os.path.dirname(current_path), exist_ok = True)
         with open(current_path, 'wb+') as f:
                 f.write(response.body)
         default_val = 'cricket-scores' #default value in the url which we need to replace for getting different pages
-        for page in ['cricket-scorecard','live-cricket-match-blog','cricket-match-facts']:
+        for page in ['cricket-scorecard','live-cricket-match-blog','cricket-match-facts','cricket-scores']:
             #time.sleep(20)
             current_url = url.replace(default_val, page)
+            url_stat[current_url] = ''
             current_path = path + page + '.html'
-            request = scrapzy.Request(current_url, callback = self.writefile)
+            request = scrapy.Request(current_url, callback = self.writefile)
             request.meta['current_path'] = current_path
             yield request
 
     def writefile(self, response):
+        global url_stat
+        url_stat[response.url] = response.status
         #writing source code of those pages into directory tree
         #Directory tree syntax  - c:/year/series/match/one_among_the_4_catagory.html
         current_path = response.meta['current_path']
