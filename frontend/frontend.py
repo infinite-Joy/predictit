@@ -3,6 +3,12 @@ import os
 from flask import Flask
 app = Flask(__name__)
 
+# run in background
+import os
+cmd = 'python background_task.py &'
+pid = os.system(cmd)
+print pid
+
 @app.route("/")
 def hello():
     with open("companies.txt", 'r') as f:
