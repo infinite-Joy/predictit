@@ -1,8 +1,9 @@
 This is the frontend part compatible with heroku
 
 frontend: this renders the output from the companies.txt and uses flask framework
+          apart from that spawns a background process for the background process
 
-clock: this is the scheduler and depends on the APScheduler library
+background_task.py: this one does the actual background work
 
 Procfile: this tells heroku what processes are there. this is needed by heroku to run the processes
 
