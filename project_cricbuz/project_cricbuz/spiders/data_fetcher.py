@@ -31,7 +31,7 @@ class data_fetcher(scrapy.Spider):
                 dicti[checking_res]['cricket-scores'].append(val)
                 verify = 1
         if verify == 0:
-            print('error with the url', response.url)
+            print('ground name fetching error: ', response.url)
 
     def time_fetcher(self, response, checking_res):
         date = response.xpath('.//*[@id="matchCenter"]/div[1]/div/span[4]/text()').extract()
@@ -42,10 +42,11 @@ class data_fetcher(scrapy.Spider):
                 try:
                     dicti[checking_res]['cricket-scores'].append(date[0] + ':' + time)
                 except IndexError:
-                    print('error with fetching date', response.url)
+                    print('date index error', response.url)
+                    dicti[checking_res]['match-facts'].append('error')
                 verify = 1
         if verify == 0:
-            print('error with the url', response.url)
+            print('time & date fetching error', response.url)
 
 
     def team_name_fetcher(self, response, checking_res):
@@ -55,21 +56,24 @@ class data_fetcher(scrapy.Spider):
         try:
             dicti[checking_res]['cricket-scores'] += temp
         except IndexError:
-            print('error in ', response.url)
+            print('team_name index error', response.url)
+            dicti[checking_res]['match-facts'].append('error')
         
-    def match_winner(self, response):
+    def match_winner(self, response, checking_res):
         temp = response.xpath('//div[@class="cb-col cb-scrcrd-status cb-col-100 cb-text-complete"]/text()').extract()
         try:
             dicti[checking_res]['cricket-scorecard'].append(temp[0].split('won')[0])
         except IndexError:
-            pass
+            print('match_winner index error', response.url)
+            dicti[checking_res]['match-facts'].append('error')
 
-    def toss_winner(self, response):
+    def toss_winner(self, response, checking_res):
         temp = response.xpath('//div[./text()="Toss:"]/following-sibling::div[1]/text()').extract()
         try:
             dicti[checking_res]['match-facts'].append(temp[0].split('won')[0])
         except IndexError:
-            pass
+            print('match_facts index error', response.url)
+            dicti[checking_res]['match-facts'].append('error')
 
     def html_parser(self, response):
         title = response.url
@@ -83,18 +87,37 @@ class data_fetcher(scrapy.Spider):
                 dicti[checking_res] = {'cricket-scorecard':[], 'match-facts':[], 'cricket-scores':[], 'match-blog':[]}
 
             if 'cricket-scorecard' in response.url:#fetching match winner
-                pass
-                #match_winner(response)
+                self.match_winner(response, checking_res)
                 
                 
             elif 'match-facts' in response.url:#fetching toss result
-                pass
-                #toss_winner(response)
+                self.toss_winner(response, checking_res)
 
             elif 'cricket-scores' in response.url:
                 #pass
-                #self.team_name_fetcher(response, checking_res)
-                #self.ground_name_fetcher(response, checking_res)
+
+                #function to find ODI or TEST or T20
+                temp = 0
+                try:
+                    temp1 = response.xpath(".//*[@id='matchCenter']/div[2]/div[1]/div/div[1]/div[1]/div[2]/text()").extract()
+                    temp2 = response.xpath(".//*[@id='matchCenter']/div[2]/div[1]/div/div[1]/div[1]/div[1]/text()").extract()
+                    if temp1:
+                        temp1 = temp1[0].split('(')
+                        temp1 = temp1[1].split()
+                        temp1 = temp1[0]
+                        temp1 = int(temp1.strip())
+                    if temp2:
+                        temp2 = temp2[0].split('(')
+                        temp2 = temp2[1].split()
+                        temp2 = temp2[0]
+                        temp2 = int(temp2.strip())
+                    temp = temp1 + temp2
+                    if temp < 41 or temp > 100:
+                        print(response.url)
+                except Exception as e:
+                    print('exception raised', e)
+                self.team_name_fetcher(response, checking_res)
+                self.ground_name_fetcher(response, checking_res)
                 self.time_fetcher(response, checking_res)
 
 
@@ -103,7 +126,7 @@ class data_fetcher(scrapy.Spider):
 
 
             else:
-                print('unknown file name')
+                pass#print('unknown file name')
     
     def climate_from_commentary(self, response):
         for key, val in dicti.items():
@@ -120,17 +143,15 @@ class data_fetcher(scrapy.Spider):
 
 
     def close(self, reason):
-        for key, val in dicti.items():
-            #data and time
-            #venue fetcher
-            if val['cricket-scores']:
-                print(val['cricket-scores'])
-            else:
-                print('error in [close]', key, val['cricket-scores'])
-            '''
-            #this is for team name fetcher
-            if len(val['cricket-scores']) == 2:
-                print(val['cricket-scores'])
-            else:
-                print(key, val['cricket-scores'])
-            '''
+        with open('tabular.txt', 'w+') as f:
+            for key, val in dicti.items():
+                try:
+                    temp_string = ''
+                    for value in val['cricket-scores']:
+                        temp_string += value + '=='
+                    temp_string += val['match-facts'][0] + '=='
+                    temp_string += val['cricket-scorecard'][0]
+                    string = key + temp_string
+                    f.write(string + '\n')
+                except Exception as e:
+                    print('exception from close', e, key + str(val['cricket-scores']) + str(val['match-facts']) + str(val['cricket-scorecard']))

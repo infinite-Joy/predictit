@@ -29,3 +29,7 @@ http://doc.scrapy.org/en/latest/intro/install.html
 
 installing dependencies
 pip install -r fetching_data_scripts/requirements.txt
+
+##Formating of data in tabular.txt
+#### '==' is using as delimter
+Year==series_name==match_name==Team1==Team2==Ground==date==time==toss_winner==match_winner
