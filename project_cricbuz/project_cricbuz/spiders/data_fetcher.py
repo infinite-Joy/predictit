@@ -7,7 +7,7 @@ def links():
         if not dirs:
             temp_list = []
             for file in files:
-                current_path = 'http://127.0.0.1:8000' + os.path.join(root, file)
+                current_path = 'http://127.0.0.1:8001' + os.path.join(root, file)
                 temp_list.append(current_path)
             if len(temp_list) == 4:
                 data_links += temp_list
@@ -51,7 +51,6 @@ class data_fetcher(scrapy.Spider):
             if ':' in time:
                 try:
                     temp_date = self.rm_spcl(date[0])
-                    print('date from special remove', temp_date)
                     dicti[checking_res]['cricket-scores'].append(temp_date + '==' + time)
                 except IndexError:
                     print('date index error', response.url)
@@ -116,18 +115,17 @@ class data_fetcher(scrapy.Spider):
                     if temp1:
                         temp1 = temp1[0].split('(')
                         temp1 = temp1[1].split()
-                        temp1 = temp1[0]
+                        temp1 = temp1[0][:2]
                         temp1 = int(temp1.strip())
                     if temp2:
                         temp2 = temp2[0].split('(')
                         temp2 = temp2[1].split()
-                        temp2 = temp2[0]
+                        temp2 = temp2[0][:2]
                         temp2 = int(temp2.strip())
-                    temp = temp1 + temp2
-                    if temp < 41 or temp > 100:
-                        print(response.url)
+                    if (temp1 and temp2 <= 20) or (temp1 or temp2 > 50):
+                        print('matches that are not identified as ODI: ', response.url)
                 except Exception as e:
-                    print('exception raised', e)
+                    print('exception raised with intiger', e)
                 self.team_name_fetcher(response, checking_res)
                 self.ground_name_fetcher(response, checking_res)
                 self.time_fetcher(response, checking_res)
@@ -138,7 +136,7 @@ class data_fetcher(scrapy.Spider):
 
 
             else:
-                pass#print('unknown file name')
+                print('unknown file name')
     
     def climate_from_commentary(self, response):
         for key, val in dicti.items():
@@ -155,7 +153,7 @@ class data_fetcher(scrapy.Spider):
 
 
     def close(self, reason):
-        with open('tabular.txt', 'w+') as f:
+        with open('pre_tabular.txt', 'w+') as f:
             for key, val in dicti.items():
                 try:
                     temp_string = ''

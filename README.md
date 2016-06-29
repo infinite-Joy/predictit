@@ -33,3 +33,8 @@ pip install -r fetching_data_scripts/requirements.txt
 ##Formating of data in tabular.txt
 #### '==' is using as delimter
 Year==series_name==match_name==Team1==Team2==Ground==date==time==toss_winner==match_winner
+
+##records that i avoided
++ Records that has T20 and Test in the url
++ Records that has women, u19, XI in the team name
++ Matches that are abondoned or doesnot have winner name in toss result field
