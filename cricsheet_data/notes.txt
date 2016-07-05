@@ -1,0 +1,25 @@
+first the number of countries was taken
+
+execution orgers:
+first run source get_cricsheet_data.sh
+
+this should download a zip file whcih contains the yaml files and the readme.txt
+
+to get the countries run:
+
+python organise_retrieved_data.py >> countries.txt
+
+multiple times with varying list of files
+
+remove the unique entries
+
+cat countries.txt | perl -ne '$H{$_}++ or print' > countries_uniq.txt
+
+mv countries_uniq.txt countries.txt
+
+#######################
+
+then we need to convert city name to latitude longitude
+
+##################
+
