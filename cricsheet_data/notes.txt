@@ -23,5 +23,7 @@ then we need to convert city name to latitude longitude
 
 ex: curl http://maps.googleapis.com/maps/api/geocode/json?address=London&sensor=false
 
+python map_city_longitude_latitide.py
+would give us json data with the city name and the latitude longitude info in them in that order
 ##################
 
