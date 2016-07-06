@@ -6,8 +6,9 @@ __pycache__/
 # C extensions
 *.so
 
-# zip extention
+# misc extention
 *.zip
+*.swp
 
 # Distribution / packaging
 .Python
