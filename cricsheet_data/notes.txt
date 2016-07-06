@@ -21,5 +21,7 @@ mv countries_uniq.txt countries.txt
 
 then we need to convert city name to latitude longitude
 
+ex: curl http://maps.googleapis.com/maps/api/geocode/json?address=London&sensor=false
+
 ##################
 
