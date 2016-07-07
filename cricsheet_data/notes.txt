@@ -5,6 +5,9 @@ first run source get_cricsheet_data.sh
 
 this should download a zip file whcih contains the yaml files and the readme.txt
 
+Tests:
+    py.test <test file>
+
 to get the countries run:
 
 python organise_retrieved_data.py >> countries.txt
@@ -27,3 +30,7 @@ python map_city_longitude_latitide.py
 would give us json data with the city name and the latitude longitude info in them in that order
 ##################
 
+get all numerical data
+
+
+cat 913629.yaml | perl -ne 'print "$1\n" if /(\d+)/' > numerical_data.txt 

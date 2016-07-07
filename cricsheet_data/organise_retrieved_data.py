@@ -1,4 +1,5 @@
 import zipfile, yaml
+import numpy as np
 
 def get_all_matches_yaml_list():
     zf = zipfile.ZipFile('all.zip', 'r')
@@ -26,6 +27,26 @@ def get_city(filename):
     except:
         pass
 
+def give_delivery_info(delivery):
+    for ball, ball_info in delivery.items():
+        return [ball] + [ball_info["runs"]["batsman"]] + \
+                        [ball_info["runs"]["extras"]] + \
+                        [ball_info["runs"]["total"]]
+
+def handle_ind_innings(ind_innings):
+    delivery_info_list = []
+    for k, v in ind_innings.items():
+        deliveries = v["deliveries"]
+        for delivery in deliveries:
+            delivery_info_list.append(give_delivery_info(delivery))
+    return delivery_info_list
+
+def get_all_overs_data(filename):
+    both_innings = read_file_in_zip(filename)["innings"]
+    for ind_innings in both_innings:
+        deliveries += handle_ind_innings(ind_innings)
+    return deliveries
+
 def get_all_cricket_cities():
     return [get_city(filename) for filename in get_all_matches_yaml_list()]
 
@@ -33,16 +54,6 @@ def print_city_names():
     for filename in get_all_matches_yaml_list()[2500:3500]: # there are around 3200 fields
         print(get_city(filename))
 
-
-def create_xdata_ydata():
-    for file in get_all_matches_yaml_list():
-        data = read_file_in_zip(file)
-        """
-        do voodoo and magic
-        i m kidding of course
-        write the necassary code
-        """
-        yield data_vector
 
 if __name__ == "__main__":
     print_city_names()
