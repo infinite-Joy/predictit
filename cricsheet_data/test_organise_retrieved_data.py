@@ -24,7 +24,7 @@ def test_read_file_in_zip_readme():
 
 def test_read_file_in_zip2():
     res = read_file_in_zip("913629.yaml")
-    print(res)
+    pp.pprint(res)
     assert res["info"]["city"] == "London"
 
 @nottest
@@ -33,16 +33,31 @@ def test_get_all_cricket_cities():
     print(res)
     assert res == 1
 
-@nottest
 def test_get_all_over():
     res = get_all_overs_data("913629.yaml")
     print(res)
-    assert res == 1
+    assert len(res) == 505
 
 def test_give_delivery_info():
     res = give_delivery_info({ 0.1: { 'batsman': 'MDKJ Perera','bowler': 'DJ Willey','non_striker': 'MD Gunathilaka','runs': { 'batsman': 1,'extras': 0,'total': 1}}})
     print(res)
-    assert res == [0.1, 1, 0, 1]
+    assert res == [0.1, 1, 0, 1, 0]
+
+def test_give_delivery_info_wicket():
+    res = give_delivery_info({ 1.3: { 'batsman': 'MD ''Gunathilaka','bowler': 'CR '
+'Woakes','non_striker': 'MDKJ '
+                        'Perera',
+         'runs': { 'batsman': 0,
+                   'extras': 0,
+                   'total': 0},
+         'wicket': { 'fielders': [ 'JM '
+                    'Bairstow'],
+         'kind': 'run '
+                 'out',
+          'player_out': 'MDKJ '
+                        'Perera'}}})
+    print(res)
+    assert res == [1.3, 0, 0, 0, 1]
 
 def test_handle_ind_innings():
     res = handle_ind_innings({ '1st innings': { 'deliveries': [{ 0.1: { 'batsman': 'MDKJ Perera',
@@ -58,4 +73,4 @@ def test_handle_ind_innings():
                                                         'extras': 0,
                                                         'total': 2}}}]}})
     pp.pprint(res)
-    assert res == [[0.1, 1, 0, 1], [0.2, 2, 0, 2]]
+    assert res == [[0.1, 1, 0, 1, 0], [0.2, 2, 0, 2, 0]]

@@ -29,9 +29,15 @@ def get_city(filename):
 
 def give_delivery_info(delivery):
     for ball, ball_info in delivery.items():
-        return [ball] + [ball_info["runs"]["batsman"]] + \
+        over_info = [ball] + [ball_info["runs"]["batsman"]] + \
                         [ball_info["runs"]["extras"]] + \
                         [ball_info["runs"]["total"]]
+        try:
+            if ball_info["wicket"]:
+                over_info += [1]
+        except KeyError:
+            over_info += [0]
+        return over_info
 
 def handle_ind_innings(ind_innings):
     delivery_info_list = []
@@ -42,6 +48,7 @@ def handle_ind_innings(ind_innings):
     return delivery_info_list
 
 def get_all_overs_data(filename):
+    deliveries = []
     both_innings = read_file_in_zip(filename)["innings"]
     for ind_innings in both_innings:
         deliveries += handle_ind_innings(ind_innings)
@@ -56,4 +63,4 @@ def print_city_names():
 
 
 if __name__ == "__main__":
-    print_city_names()
+        print(get_all_overs_data("913629.yaml"))
