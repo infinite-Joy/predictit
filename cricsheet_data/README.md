@@ -34,3 +34,21 @@ get all numerical data
 
 
 cat 913629.yaml | perl -ne 'print "$1\n" if /(\d+)/' > numerical_data.txt 
+
+##################################
+
+## get all overs data
+
+python organise_retrieved_data.py > data.out
+
+## introduce new line
+
+sed "s/], /],\n/g" data.out > data.out_bak
+mv data.out_bak data.out
+
+## remove the parenthesis
+
+sed "s/\],//g" data.out > data.out_bak
+mv data.out_bak data.out
+sed "s/\[//g" data.out > data.out_bak
+mv data.out_bak data.out
