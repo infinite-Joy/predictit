@@ -27,11 +27,12 @@ def get_city(filename):
     except:
         pass
 
-def give_delivery_info(delivery):
+def give_delivery_info(runs_scored ,delivery):
     for ball, ball_info in delivery.items():
         over_info = [ball] + [ball_info["runs"]["batsman"]] + \
                         [ball_info["runs"]["extras"]] + \
                         [ball_info["runs"]["total"]]
+        over_info.append(runs_scored + ball_info["runs"]["total"])
         try:
             if ball_info["wicket"]:
                 over_info += [1]
@@ -42,16 +43,19 @@ def give_delivery_info(delivery):
 def handle_ind_innings(ind_innings):
     """
     the output is a list in the following format
-    [[ first ball, batsman, extras, total, if_wicket]
-    [ second ball, batsman, extras, total, if_wicket]
+    [[ first ball, batsman, extras, total this ball, total runs scored yet, if_wicket]
+    [ second ball, batsman, extras, total this ball, total runs scored yet, if_wicket]
     ... and so on
-    [ last ball, batsman, extras, total, if_wicket]]
+    [ last ball, batsman, extras, total this ball, total runs scored yet, if_wicket]]
     """
     delivery_info_list = []
+    runs_scored = 0
     for k, v in ind_innings.items():
         deliveries = v["deliveries"]
         for delivery in deliveries:
-            delivery_info_list.append(give_delivery_info(delivery))
+            delivery_info = give_delivery_info(runs_scored ,delivery)
+            runs_scored = delivery_info[4]
+            delivery_info_list.append(delivery_info)
     return delivery_info_list
 
 def get_all_overs_data(filename):

@@ -39,12 +39,12 @@ def test_get_all_over():
     assert len(res) == 505
 
 def test_give_delivery_info():
-    res = give_delivery_info({ 0.1: { 'batsman': 'MDKJ Perera','bowler': 'DJ Willey','non_striker': 'MD Gunathilaka','runs': { 'batsman': 1,'extras': 0,'total': 1}}})
+    res = give_delivery_info(10, { 0.1: { 'batsman': 'MDKJ Perera','bowler': 'DJ Willey','non_striker': 'MD Gunathilaka','runs': { 'batsman': 1,'extras': 0,'total': 1}}})
     print(res)
-    assert res == [0.1, 1, 0, 1, 0]
+    assert res == [0.1, 1, 0, 1, 11, 0]
 
 def test_give_delivery_info_wicket():
-    res = give_delivery_info({ 1.3: { 'batsman': 'MD ''Gunathilaka','bowler': 'CR '
+    res = give_delivery_info(13, { 1.3: { 'batsman': 'MD ''Gunathilaka','bowler': 'CR '
 'Woakes','non_striker': 'MDKJ '
                         'Perera',
          'runs': { 'batsman': 0,
@@ -57,7 +57,7 @@ def test_give_delivery_info_wicket():
           'player_out': 'MDKJ '
                         'Perera'}}})
     print(res)
-    assert res == [1.3, 0, 0, 0, 1]
+    assert res == [1.3, 0, 0, 0, 13, 1]
 
 def test_handle_ind_innings():
     res = handle_ind_innings({ '1st innings': { 'deliveries': [{ 0.1: { 'batsman': 'MDKJ Perera',
@@ -73,4 +73,4 @@ def test_handle_ind_innings():
                                                         'extras': 0,
                                                         'total': 2}}}]}})
     pp.pprint(res)
-    assert res == [[0.1, 1, 0, 1, 0], [0.2, 2, 0, 2, 0]]
+    assert res == [[0.1, 1, 0, 1, 1, 0], [0.2, 2, 0, 2, 3, 0]]
