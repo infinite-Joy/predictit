@@ -1,12 +1,8 @@
-from xdata_ydata import create_xdata_ydata, get_relevant_data, \
+from xdata_ydata import get_relevant_data, \
                 get_lat_lng
 
 from nose.tools import nottest
 
-
-def test_create_xdata_ydata():
-    res = create_xdata_ydata("913629.yaml")
-    assert res == 1
 
 def test_get_relevant_data_date():
     res = get_relevant_data("  created: 2016-06-30")

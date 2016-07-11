@@ -37,7 +37,7 @@ def create_xdata_ydata_per_over(file):
 def get_dataset():
     for file in get_all_matches_yaml_list()[0:10]:
         if file != "README.txt":
-            print(create_xdata_ydata(file))
+            print(create_xdata_ydata_per_over(file))
 
 if __name__ == "__main__":
     get_dataset()

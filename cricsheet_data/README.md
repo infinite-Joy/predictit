@@ -1,7 +1,7 @@
 first the number of countries was taken
 
-execution orgers:
-first run source get_cricsheet_data.sh
+## get cricsheet data
+wget http://cricsheet.org/downloads/all.zip
 
 this should download a zip file whcih contains the yaml files and the readme.txt
 
@@ -27,7 +27,9 @@ then we need to convert city name to latitude longitude
 ex: curl http://maps.googleapis.com/maps/api/geocode/json?address=London&sensor=false
 
 python map_city_longitude_latitide.py
+
 would give us json data with the city name and the latitude longitude info in them in that order
+
 ##################
 
 get all numerical data
@@ -52,3 +54,11 @@ sed "s/\],//g" data.out > data.out_bak
 mv data.out_bak data.out
 sed "s/\[//g" data.out > data.out_bak
 mv data.out_bak data.out
+
+# this will take the 10 % data lines in a file randomly
+awk 'BEGIN {srand()} !/^$/ { if (rand() <= .1) print $0}' data.out > data_test.out
+
+cat data.out | awk '{ print $(NF) }' > y_data.out
+
+cat data_test.out | awk '{ print $(NF) }' > y_data_test.out
+
