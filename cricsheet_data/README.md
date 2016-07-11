@@ -5,10 +5,42 @@ wget http://cricsheet.org/downloads/all.zip
 
 this should download a zip file whcih contains the yaml files and the readme.txt
 
-Tests:
-    py.test <test file>
+## Testing
 
-to get the countries run:
+This works in both py.test and nosetests framework
+(py3_venv_deepL_conda)vagrant@precise32:~/predictor/predictor/cricsheet_data$ py.test -v
+========================================================================= test session starts ==========================================================================
+platform linux -- Python 3.5.2, pytest-2.9.2, py-1.4.31, pluggy-0.3.1 -- /home/vagrant/.conda/envs/py3_venv_deepL_conda/bin/python
+cachedir: .cache
+rootdir: /home/vagrant/predictor/predictor/cricsheet_data, inifile:
+collected 15 items
+
+tests/test_map_city_longitude_latitide.py::test_get_cities PASSED
+tests/test_map_city_longitude_latitide.py::test_get_lat_lon_from PASSED
+tests/test_map_city_longitude_latitide.py::test_query_google_vincent PASSED
+tests/test_organise_retrieved_data.py::test_get_all_matches_yaml_list PASSED
+tests/test_organise_retrieved_data.py::test_read_file_in_zip PASSED
+tests/test_organise_retrieved_data.py::test_read_file_in_zip_readme PASSED
+tests/test_organise_retrieved_data.py::test_read_file_in_zip2 PASSED
+tests/test_organise_retrieved_data.py::test_get_all_over PASSED
+tests/test_organise_retrieved_data.py::test_give_delivery_info PASSED
+tests/test_organise_retrieved_data.py::test_give_delivery_info_wicket PASSED
+tests/test_organise_retrieved_data.py::test_handle_ind_innings PASSED
+tests/test_xdata_ydata.py::test_get_relevant_data_date PASSED
+tests/test_xdata_ydata.py::test_get_relevant_data_float PASSED
+tests/test_xdata_ydata.py::test_get_relevant_data_num PASSED
+tests/test_xdata_ydata.py::test_get_lat_lng PASSED
+
+====================================================================== 15 passed in 4.71 seconds =======================================================================
+(py3_venv_deepL_conda)vagrant@precise32:~/predictor/predictor/cricsheet_data$ nosetests
+...............
+----------------------------------------------------------------------
+Ran 15 tests in 4.307s
+
+OK
+
+
+## to get the countries run:
 
 python organise_retrieved_data.py >> countries.txt
 
