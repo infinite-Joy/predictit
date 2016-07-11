@@ -40,6 +40,13 @@ def give_delivery_info(delivery):
         return over_info
 
 def handle_ind_innings(ind_innings):
+    """
+    the output is a list in the following format
+    [[ first ball, batsman, extras, total, if_wicket]
+    [ second ball, batsman, extras, total, if_wicket]
+    ... and so on
+    [ last ball, batsman, extras, total, if_wicket]]
+    """
     delivery_info_list = []
     for k, v in ind_innings.items():
         deliveries = v["deliveries"]
