@@ -1,4 +1,5 @@
-first the number of countries was taken
+## model description
+to get the prediction if the batsman is going to be out in the next ball
 
 ## get cricsheet data
 wget http://cricsheet.org/downloads/all.zip
