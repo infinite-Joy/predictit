@@ -1,9 +1,14 @@
-import zipfile, yaml
-import numpy as np
+import zipfile
+import yaml
+import re
+import json
+import zipfile
+
 
 def get_all_matches_yaml_list():
     zf = zipfile.ZipFile('all.zip', 'r')
     return zf.namelist()
+
 
 def read_file_in_zip(filename):
     zf = zipfile.ZipFile('all.zip', 'r')
@@ -21,13 +26,15 @@ def read_file_in_zip(filename):
             print(repr(data))
         print
 
+
 def get_city(filename):
     try:
         return read_file_in_zip(filename)["info"]["city"]
     except:
         pass
 
-def give_delivery_info(runs_scored ,delivery):
+
+def give_delivery_info(runs_scored, delivery):
     for ball, ball_info in delivery.items():
         over_info = [ball] + [ball_info["runs"]["batsman"]] + \
                         [ball_info["runs"]["extras"]] + \
@@ -40,37 +47,87 @@ def give_delivery_info(runs_scored ,delivery):
             over_info += [0]
         return over_info
 
-def handle_ind_innings(ind_innings):
+
+def handle_ind_innings(city_coords, ind_innings):
     """
     the output is a list in the following format
-    [[ first ball, batsman, extras, total this ball, total runs scored yet, if_wicket]
-    [ second ball, batsman, extras, total this ball, total runs scored yet, if_wicket]
+    [[ first ball, batsman, extras, total this ball, total runs scored yet,
+    if_wicket]
+    [ second ball, batsman, extras, total this ball, total runs scored yet,
+    if_wicket]
     ... and so on
-    [ last ball, batsman, extras, total this ball, total runs scored yet, if_wicket]]
+    [ last ball, batsman, extras, total this ball, total runs scored yet,
+    if_wicket]]
     """
     delivery_info_list = []
     runs_scored = 0
     for k, v in ind_innings.items():
         deliveries = v["deliveries"]
         for delivery in deliveries:
-            delivery_info = give_delivery_info(runs_scored ,delivery)
+            delivery_info = give_delivery_info(runs_scored, delivery)
             runs_scored = delivery_info[4]
-            delivery_info_list.append(delivery_info)
+            delivery_info_list.append(city_coords + delivery_info)
     return delivery_info_list
 
+
 def get_all_overs_data(filename):
+    city_coords = get_lat_lng(get_city(filename))
     deliveries = []
     both_innings = read_file_in_zip(filename)["innings"]
     for ind_innings in both_innings:
-        deliveries += handle_ind_innings(ind_innings)
+        deliveries += handle_ind_innings(city_coords, ind_innings)
     return deliveries
+
 
 def get_all_cricket_cities():
     return [get_city(filename) for filename in get_all_matches_yaml_list()]
 
+
 def print_city_names():
-    for filename in get_all_matches_yaml_list()[2500:3500]: # there are around 3200 fields
+    """
+    there are around 3200 fields
+    so take them batch by batch
+    """
+    for filename in get_all_matches_yaml_list()[2500:3500]:
         print(get_city(filename))
+
+def get_relevant_data(line):
+    date_match=re.search(r'(\d+\-\d+\-\d+)',line)
+    if date_match:
+        date_match_text = date_match.group(1)
+        return date_match_text.replace("-", "")
+
+    float_match=re.search(r'(\d+\.\d+)',line)
+    if float_match:
+        float_match_text = float_match.group(1)
+        return float_match_text
+
+    num_match = re.search(r'(\d+)',line)
+    if num_match:
+        num_match_text = num_match.group(1)
+        return num_match_text
+
+def get_lat_lng(city):
+    with open("city_lat_lon.txt") as f:
+        data = json.load(f)
+        return data[city]
+
+
+def create_xdata_ydata_per_over(file):
+    zf = zipfile.ZipFile('all.zip', 'r')
+    f = str(zf.read(file)).split("\\n")
+    city_coordinates = get_lat_lng(get_city(file))
+    dataset = [x for x in city_coordinates]
+    for line in f:
+        dataset.append(get_relevant_data(line))
+    dataset = [float(x) for x in dataset if x is not None]
+    return dataset
+
+def get_dataset():
+    for file in get_all_matches_yaml_list()[0:10]:
+        if file != "README.txt":
+            print(create_xdata_ydata_per_over(file))
+
 
 
 if __name__ == "__main__":

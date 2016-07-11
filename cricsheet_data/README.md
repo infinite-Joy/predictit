@@ -95,3 +95,11 @@ cat data.out | awk '{ print $(NF) }' > y_data.out
 
 cat data_test.out | awk '{ print $(NF) }' > y_data_test.out
 
+## for some reason max_features as multiples of 5 are only working
+
+so changes this according to that
+
+## things to do next
+next get the datasets of all the files. 
+run into into the model
+and then generate the model and save it to a h5py file

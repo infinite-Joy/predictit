@@ -17,8 +17,9 @@ from keras.layers import Dense, Dropout, Activation, Embedding
 from keras.layers import LSTM, SimpleRNN, GRU
 from keras.datasets import imdb
 
-max_features = 505
-maxlen = 5 # cut texts after this number of words (among top max_features most common words)
+max_features = 500
+# cut texts after this number of words (among top max_features most common words)
+maxlen = 7
 batch_size = 32
 
 print('Loading data...')
@@ -61,5 +62,7 @@ model.fit(X_train, y_train, batch_size=batch_size, nb_epoch=4,
                     validation_data=(X_test, y_test))
 score, acc = model.evaluate(X_test, y_test,
                             batch_size=batch_size)
+
+print("")
 print('Test score:', score)
 print('Test accuracy:', acc)
