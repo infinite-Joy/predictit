@@ -38,3 +38,4 @@ Year==series_name==match_name==Team1==Team2==Ground==date==time==toss_winner==ma
 + Records that has T20 and Test in the url
 + Records that has women, u19, XI in the team name
 + Matches that are abondoned or doesnot have winner name in toss result field
++ matches which stadium name i could not map with a country - almost 800 matches
