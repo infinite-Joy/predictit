@@ -1,4 +1,4 @@
-from xdata_ydata import get_relevant_data, \
+from organise_retrieved_data import get_relevant_data, \
                 get_lat_lng
 
 from nose.tools import nottest

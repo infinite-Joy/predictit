@@ -1,11 +1,7 @@
-from __future__ import print_function
-from random import randint
 import zipfile
 import yaml
 import re
 import json
-import logging
-import datetime
 
 
 def get_all_matches_yaml_list():
@@ -135,33 +131,8 @@ def get_dataset():
             print(create_xdata_ydata_per_over(file))
 
 
-def get_date():
-    mylist = []
-    today = datetime.date.today()
-    mylist.append(today)
-    return mylist[0]
-
-
 if __name__ == "__main__":
-    # logging
-    logFormatter = logging.Formatter("%(asctime)s [%(threadName)-12.12s] \
-                                     [%(levelname)-5.5s]  %(message)s")
-    rootLogger = logging.getLogger()
-    rootLogger.setLevel(logging.INFO)
-
-    fileName = "logs/organise_retrieved_data_%s_%s"\
-        % (get_date(), randint(0, 50))
-    fileHandler = logging.FileHandler("{0}.log".format(fileName))
-    fileHandler.setFormatter(logFormatter)
-    fileHandler.setLevel(logging.INFO)
-
-    rootLogger.addHandler(fileHandler)
-
-    # for file_name in get_all_matches_yaml_list()[10:100]:
-    for file_name in get_all_matches_yaml_list()[3000:4000]:
+    for file_name in get_all_matches_yaml_list()[10:100]:
+        print(file_name)
         if file_name != "README.txt":
-            try:
-                print(get_all_overs_data(file_name))
-            except Exception as e:
-                rootLogger.info(e)
-                rootLogger.info("file not working: %s" % file_name)
+            print(get_all_overs_data(file_name))

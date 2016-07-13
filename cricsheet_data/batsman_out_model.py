@@ -17,7 +17,7 @@ from keras.layers import Dense, Dropout, Activation, Embedding
 from keras.layers import LSTM, SimpleRNN, GRU
 from keras.datasets import imdb
 
-max_features = 500
+max_features = 800000
 # cut texts after this number of words (among top max_features most common words)
 maxlen = 7
 batch_size = 32
@@ -66,3 +66,11 @@ score, acc = model.evaluate(X_test, y_test,
 print("")
 print('Test score:', score)
 print('Test accuracy:', acc)
+
+# save model as yaml file
+# save as json
+# save the architesture
+json_string = model.to_json()
+open('batsman_out_model.json', 'w').write(json_string)
+
+model.save_weights('batsman_out_model_weights.hdf5')

@@ -27,16 +27,16 @@ tests/test_organise_retrieved_data.py::test_get_all_over PASSED
 tests/test_organise_retrieved_data.py::test_give_delivery_info PASSED
 tests/test_organise_retrieved_data.py::test_give_delivery_info_wicket PASSED
 tests/test_organise_retrieved_data.py::test_handle_ind_innings PASSED
-tests/test_xdata_ydata.py::test_get_relevant_data_date PASSED
-tests/test_xdata_ydata.py::test_get_relevant_data_float PASSED
-tests/test_xdata_ydata.py::test_get_relevant_data_num PASSED
-tests/test_xdata_ydata.py::test_get_lat_lng PASSED
+tests/test_xdata_ydata_partII.py::test_get_relevant_data_date PASSED
+tests/test_xdata_ydata_partII.py::test_get_relevant_data_float PASSED
+tests/test_xdata_ydata_partII.py::test_get_relevant_data_num PASSED
+tests/test_xdata_ydata_partII.py::test_get_lat_lng PASSED
 
-====================================================================== 15 passed in 4.71 seconds =======================================================================
+====================================================================== 15 passed in 5.77 seconds =======================================================================
 (py3_venv_deepL_conda)vagrant@precise32:~/predictor/predictor/cricsheet_data$ nosetests
 ...............
 ----------------------------------------------------------------------
-Ran 15 tests in 4.307s
+Ran 15 tests in 5.699s
 
 OK
 
@@ -88,12 +88,42 @@ mv data.out_bak data.out
 sed "s/\[//g" data.out > data.out_bak
 mv data.out_bak data.out
 
-# this will take the 10 % data lines in a file randomly
+## did a very silly mistake
+see
+(py3_venv_deepL_conda)vagrant@precise32:~/predictor/predictor/cricsheet_data$ sed -n '792239p' data.out
+53.8007554 -1.5490774 32.6 0 0 0 130 013.193887 -59.543198 0.1 0 0 0 0
+
+so put new lines whereever there is ]]
+
+## format of data.out
+please ensure the data.out to be in the following format
+(py3_venv_deepL_conda)vagrant@precise32:~/predictor/predictor/cricsheet_data$ tail -10 data.out
+-9.443800399999999 147.1802671 46.2 4 0 4 220 0
+-9.443800399999999 147.1802671 46.3 1 0 1 221 0
+-9.443800399999999 147.1802671 46.4 2 0 2 223 0
+-9.443800399999999 147.1802671 46.5 2 0 2 225 0
+-9.443800399999999 147.1802671 46.6 0 0 0 225 1
+-9.443800399999999 147.1802671 47.1 2 0 2 227 0
+-9.443800399999999 147.1802671 47.2 0 0 0 227 1
+-9.443800399999999 147.1802671 47.3 0 1 1 228 0
+-9.443800399999999 147.1802671 47.4 0 0 0 228 1
+-9.443800399999999 147.1802671 47.5 0 0 0 228 1
+
+
+# this will take the 10% data lines in a file randomly
 awk 'BEGIN {srand()} !/^$/ { if (rand() <= .1) print $0}' data.out > data_test.out
 
 cat data.out | awk '{ print $(NF) }' > y_data.out
 
 cat data_test.out | awk '{ print $(NF) }' > y_data_test.out
+
+## remove the last digit(y part) from data.out and data_test.out
+
+sed "s/\w*$//" data.out > data.out_bak
+mv data.out_bak data.out
+
+sed "s/\w*$//" data_test.out > data_test.out_bak
+mv data_test.out_bak data_test.out
 
 ## for some reason max_features as multiples of 5 are only working
 
@@ -103,3 +133,5 @@ so changes this according to that
 next get the datasets of all the files. 
 run into into the model
 and then generate the model and save it to a h5py file
+
+also work on the logging part
