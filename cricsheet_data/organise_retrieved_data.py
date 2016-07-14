@@ -6,6 +6,7 @@ import re
 import json
 import logging
 import datetime
+from sys import argv
 
 
 def get_all_matches_yaml_list():
@@ -143,6 +144,10 @@ def get_date():
 
 
 if __name__ == "__main__":
+    # see the args
+    present_iter_lower = int(argv[1])
+    present_iter_upper = int(argv[2])
+
     # logging
     logFormatter = logging.Formatter("%(asctime)s [%(threadName)-12.12s] \
                                      [%(levelname)-5.5s]  %(message)s")
@@ -157,7 +162,7 @@ if __name__ == "__main__":
 
     rootLogger.addHandler(fileHandler)
 
-    for file_name in get_all_matches_yaml_list()[0:30]:
+    for file_name in get_all_matches_yaml_list()[present_iter_lower:present_iter_upper]:
         if file_name != "README.txt":
             try:
                 print(get_all_overs_data(file_name))

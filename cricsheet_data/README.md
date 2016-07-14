@@ -72,28 +72,13 @@ cat 913629.yaml | perl -ne 'print "$1\n" if /(\d+)/' > numerical_data.txt
 
 ##################################
 
-## get all overs data
+## now only to run 
+```
+bash main_script.sh
+```
 
-python organise_retrieved_data.py > data.out
-
-## introduce new line
-
-sed "s/], /],\n/g" data.out > data.out_bak
-mv data.out_bak data.out
-
-## remove the parenthesis
-
-sed "s/\],//g" data.out > data.out_bak
-mv data.out_bak data.out
-sed "s/\[//g" data.out > data.out_bak
-mv data.out_bak data.out
-
-## did a very silly mistake
-see
-(py3_venv_deepL_conda)vagrant@precise32:~/predictor/predictor/cricsheet_data$ sed -n '792239p' data.out
-53.8007554 -1.5490774 32.6 0 0 0 130 013.193887 -59.543198 0.1 0 0 0 0
-
-so put new lines whereever there is ]]
+this keeps all the processes in automated and runs through them in a 
+30 file interation to keep the dataset per iteration below 20000
 
 ## format of data.out
 please ensure the data.out to be in the following format
@@ -110,28 +95,11 @@ please ensure the data.out to be in the following format
 -9.443800399999999 147.1802671 47.5 0 0 0 228 1
 
 
-# this will take the 10% data lines in a file randomly
-awk 'BEGIN {srand()} !/^$/ { if (rand() <= .1) print $0}' data.out > data_test.out
-
-cat data.out | awk '{ print $(NF) }' > y_data.out
-
-cat data_test.out | awk '{ print $(NF) }' > y_data_test.out
-
-## remove the last digit(y part) from data.out and data_test.out
-
-sed "s/\w*$//" data.out > data.out_bak
-mv data.out_bak data.out
-
-sed "s/\w*$//" data_test.out > data_test.out_bak
-mv data_test.out_bak data_test.out
-
 ## for some reason max_features as multiples of 5 are only working
 
 so changes this according to that
 
-## things to do next
-next get the datasets of all the files. 
-run into into the model
-and then generate the model and save it to a h5py file
 
-also work on the logging part
+## things to do
+
+create a script that will give predictions on the model
