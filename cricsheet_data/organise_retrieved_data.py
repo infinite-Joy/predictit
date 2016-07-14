@@ -157,8 +157,7 @@ if __name__ == "__main__":
 
     rootLogger.addHandler(fileHandler)
 
-    # for file_name in get_all_matches_yaml_list()[10:100]:
-    for file_name in get_all_matches_yaml_list()[0:1000]:
+    for file_name in get_all_matches_yaml_list()[0:30]:
         if file_name != "README.txt":
             try:
                 print(get_all_overs_data(file_name))
