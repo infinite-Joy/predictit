@@ -1,0 +1,56 @@
+Scotland:Edinburgh Cricket Ground, Edinburgh
+Pakistan:Sports Stadium, Sargodha
+England:Kennington Oval, London
+Saint Vincent and the Grenadines:Arnos Vale Ground, Kingstown, St Vincent
+Sri Lanka:P Sara Oval, Colombo
+Dominica:Windsor Park, Roseau, Dominica
+New Zealand:Eden Park, Auckland
+India:Dr. Y.S. Rajasekhara Reddy ACA-VDCA Cricket Stadium, Visakhapatnam
+Grenada:National Cricket Stadium, St George's, Grenada
+Australia:Cazaly's Stadium, Cairns
+Jamaica:Sabina Park, Kingston, Jamaica
+England:Riverside Ground, Chester-le-Street
+Netherlands:Hazelaarweg, Rotterdam
+Sri Lanka:R.Premadasa Stadium, Colombo
+South Africa:St George's Park, Port Elizabeth
+Pakistan:National Stadium, Karachi
+England:Nevill Ground, Tunbridge Wells
+Wales:Sophia Gardens, Cardiff
+Bangladesh:Khan Shaheb Osman Ali Stadium, Fatullah
+India:Molana Azad Stadium, Jammu
+South Africa:Wanderers Cricket Ground, Windhoek
+India:MA Chidambaram Stadium, Chennai
+Bangladesh:Sylhet International Cricket Stadium, Sylhet
+England:Mangaung Oval, Bloemfontein
+South Africa:Buffalo Park, East London
+England:Edgbaston, Birmingham
+Guyana:Bourda, Georgetown, Guyana
+Morocco:National Cricket Stadium, Tangier
+South Africa:Diamond Oval, Kimberley
+India:Green Park, Kanpur
+Scotland:Grange Cricket Club, Edinburgh
+England:Uxbridge Cricket Club Ground, Uxbridge
+Netherlands:Sportpark Het Schootsveld, Deventer
+South Africa:Senwes Park, Potchefstroom
+England:New Road, Worcester
+England:Devonport Oval, Devonport
+Saint Lucia:Mindoo Phillip Park, Castries, St Lucia
+Ireland:The Village, Dublin
+India:Maharashtra Cricket Association Stadium, Pune
+Australia:W.A.C.A. Ground, Perth
+India:Himachal Pradesh Cricket Association Stadium, Dharamsala
+South Africa:Kingsmead, Durban
+Bangladesh:Zahur Ahmed Chowdhury Stadium, Chittagong
+India:Dr DY Patil Sports Academy, Mumbai
+Canada:Toronto CSCC, Toronto
+Australia:Marrara Cricket Ground, Darwin
+Bangladesh:Sheikh Abu Naser Stadium, Khulna
+Ireland:Bready Cricket Club, Bready, Northern Ireland
+Saint Kitts and Nevis:Warner Park, Basseterre, St Kitts
+South Africa:The Wanderers Stadium, Johannesburg
+Antigua and Barbuda:Antigua Recreation Ground, St John's, Antigua
+Australia:Harrup Park, Mackay
+South Africa:Newlands, Cape Town
+Ireland:Observatory Lane, Dublin
+Bangladesh:Khan Shaheb Osman Ali Outer Stadium, Fatullah
+New Zealand:Pukekura Park, New Plymouth

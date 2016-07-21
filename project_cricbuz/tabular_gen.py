@@ -1,12 +1,6 @@
 from test import sim_finder, ground_country_mapping
 from collections import OrderedDict as od
 
-def comparer(variable):
-    for val in variable:
-        for value in variable:
-            rat = sim_finder(val, value)
-            if  0 < rat < 1:
-                print(val, '-', value, rat)
 
 def delete_unwanted():
     lis = ['WOMEN', 'XI', 'U19']
@@ -27,13 +21,8 @@ def ground_match(name, mapping):
     else:
         return 0
 
-def compression(table):
-    new_table = []
-    for raw in table:
-        new_table.append([raw[0], raw[5], raw[8], raw[9]])
-    return new_table
-
 def delete_incon(selraws):
+    #removing games such is D/L result, or abandoned or tied
     checker = 0
     out = []
     for val in selraws:
@@ -76,7 +65,6 @@ mapping = ground_country_mapping()
 for raw in table[:]:
     res = ground_match(raw[5], mapping)
     if not res:
-        #rethink about this removal. YOu are removing all the games that doesnt have 0.6 mapping ratio
         table.remove(raw)
     else:
         raw[5] = res[1].upper()
@@ -91,7 +79,6 @@ print('size of table after ratio', len(table))
 with open('prefinal.txt', 'w+') as f:
     for val in table:
         f.write(str(val) + '\n\n\n')
-#table = compression(table)
 
 #tabular data generation starts here
 X = []
@@ -152,8 +139,8 @@ for raw in table:
     else:
         temp[1].append(0)
 
-    temp[0].append(raw)
-    temp[1].append(raw)
+    temp[0] += raw
+    temp[1] += raw
     #debugging
     if toss_winner_d != 1:
         print('error with toss winner')
@@ -166,5 +153,8 @@ for raw in table:
 
 with open('tabular.txt', 'w+') as f:
     for val in X:
-        f.write(str(val[0]) + ' ' + str(val[1]) + ' ' + str(val[2]) + '\n')
-        #f.write(str(val) + '\n\n')
+        string = ''
+        #f.write(str(val[0]) + ' ' + str(val[1]) + ' ' + str(val[2]) + '\n')
+        for v in val:
+            string += str(v) + '=='
+        f.write(string + '\n')
