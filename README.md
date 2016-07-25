@@ -43,3 +43,12 @@ Ex.
 + Records that has women, u19, XI in the team name
 + Matches that are abondoned or doesnot have winner name in toss result field
 + matches which stadium name i could not map with a country - almost 800 matches
+
+##Important links to NLP
+- https://github.com/nltk/nltk/wiki/Installing-Third-Party-Software
+- https://www.quora.com/Could-anyone-give-me-an-example-of-using-Stanford-CoreNLP-sentiment-analysis-with-Python
+- http://www.nltk.org/api/nltk.tag.html#module-nltk.tag.stanford
+- https://www.ling.upenn.edu/courses/Fall_2003/ling001/penn_treebank_pos.html
+- www.cortical.io
+- https://opennlp.apache.org/
+- http://www.nltk.org/book/ch01.html
