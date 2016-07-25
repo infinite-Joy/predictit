@@ -248,3 +248,11 @@ South Africa:Newlands, Cape Town
 Ireland:Observatory Lane, Dublin
 Bangladesh:Khan Shaheb Osman Ali Outer Stadium, Fatullah
 New Zealand:Pukekura Park, New Plymouth
+England:The Cooper Associates County Ground, Taunton
+India:DRIEMS Ground, Cuttack
+England:Louth Cricket Club, Louth
+Australia:Endeavour Park, Townsville, Townsville
+England:Haslegrave Ground, Loughborough
+India:Middle Income Group Ground, Mumbai
+India:Bandra Kurla Complex, Mumbai
+Australia:Endeavour Park No. 2, Townsville, Townsville

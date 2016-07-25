@@ -32,7 +32,11 @@ pip install -r fetching_data_scripts/requirements.txt
 
 ##Formating of data in tabular.txt
 #### '==' is using as delimter
-Year==series_name==match_name==Team1==Team2==Ground==date==time==toss_winner==match_winner
+match_winner==ground winner==toss winner==Year==series_name==match_name==Team1==Team2==Ground==date==time==first batting==score==out==over==second batting==out==over==toss_winner==match_winner
+
+Ex.
+1==1==0==1988==west-indies-in-england==eng-vs-wi-2nd-odi-west-indies-in-england==ENGLAND==WEST INDIES==ENGLAND==May 21==01:00 AM  LOCAL==ENGLAND==186==8==55==WEST INDIES==139==10==46==WEST INDIES==ENGLAND==3==
+0==0==1==1988==west-indies-in-england==eng-vs-wi-2nd-odi-west-indies-in-england==ENGLAND==WEST INDIES==ENGLAND==May 21==01:00 AM  LOCAL==ENGLAND==186==8==55==WEST INDIES==139==10==46==WEST INDIES==ENGLAND==3==
 
 ##records that i avoided
 + Records that has T20 and Test in the url

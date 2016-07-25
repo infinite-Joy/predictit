@@ -1,6 +1,15 @@
 from test import sim_finder, ground_country_mapping
 from collections import OrderedDict as od
 
+def rm_spcl(string):
+    out_string = ''
+    for c in string:
+        if not c.isalnum():
+            out_string += ' '
+        else:
+            out_string += c
+    out_string = out_string.strip().split()
+    return out_string
 
 def delete_unwanted():
     lis = ['WOMEN', 'XI', 'U19']
@@ -64,15 +73,27 @@ print('size of table before loop for ratio', len(table))
 mapping = ground_country_mapping()
 for raw in table[:]:
     res = ground_match(raw[5], mapping)
+    assert res
     if not res:
         table.remove(raw)
     else:
         raw[5] = res[1].upper()
-        out = delete_incon([raw[5], raw[8], raw[9]])
-        if out:
-            raw[5], raw[8], raw[9] = out
-        else:
+        out = delete_incon([raw[5], raw[10], raw[11]])
+        if not out:
             table.remove(raw)
+        else:
+            raw[5], raw[10], raw[11] = out
+            a = rm_spcl(raw[8])
+            b = rm_spcl(raw[9])
+            if len(a) >= 5 and len(b) >= 5:
+                raw[8] = delete_incon([a[0].strip()]) + [a[1], a[2], a[3]]
+                raw[8] = '=='.join(raw[8])
+                raw[9] = delete_incon([b[0].strip()]) + [b[1], b[2], b[3]]
+                raw[9] = '=='.join(raw[9])
+            else:
+                table.remove(raw)
+
+
 
 print('size of table after ratio', len(table))
 
@@ -92,8 +113,8 @@ for raw in table:
     t1 = raw[3]
     t2 = raw[4]
     ground = raw[5]
-    toss_winner = raw[8]
-    match_winner = raw[9]
+    toss_winner = raw[10]
+    match_winner = raw[11]
 
     #variables for debugging
     toss_winner_d = 0
