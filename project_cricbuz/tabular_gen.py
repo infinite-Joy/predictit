@@ -97,10 +97,6 @@ for raw in table[:]:
 
 print('size of table after ratio', len(table))
 
-with open('prefinal.txt', 'w+') as f:
-    for val in table:
-        f.write(str(val) + '\n\n\n')
-
 #tabular data generation starts here
 X = []
 for raw in table:
