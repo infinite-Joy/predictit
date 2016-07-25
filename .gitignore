@@ -1,3 +1,6 @@
+# some project specific files
+*.out
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -6,8 +9,9 @@ __pycache__/
 # C extensions
 *.so
 
-# zip extention
+# misc extention
 *.zip
+*.swp
 
 # Distribution / packaging
 .Python
