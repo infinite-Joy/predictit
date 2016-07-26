@@ -52,3 +52,4 @@ Ex.
 - www.cortical.io
 - https://opennlp.apache.org/
 - http://www.nltk.org/book/ch01.html
+- https://pypi.python.org/pypi/corenlp-python
