@@ -1,4 +1,5 @@
-## Predictor
+# predictit
+Cricket prediction app with made with the amazing capabilities of theano
 
 
 How to use the fetch_data_script:
